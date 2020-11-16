@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if response %}
+
+        <div class="card">
+            <div class="card-body">
+
+                <h3>{{ response.name }}:</h3>
+
+                <ul class="list-group">
+
+                    {% for item in response.data %}
+                        <li class="list-group-item">
+                            {{ item.name }}: {{ item.price }} - width: <b>{{ item.width }}</b> | height: <b>{{ item.height }}</b>
+                        </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+        </div>
+        <hr>
+
+        <form action="/products/{{ response.name }}/" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="add product">
+        </form>
+        <a type="button" class="btn btn-primary" href="/products/">BACK</a>
+
+    {% else %}
+        <h4>RESPONSE is empty</h4>
+    {% endif %}
+{% endblock content %}

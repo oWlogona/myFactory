@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for key, val in response.items %}
+
+        <div class="card">
+            <div class="card-body">
+                <a href="/departments/{{ key }}">{{ key }}</a>:</h3>
+
+                <ul class="list-group">
+                    {% for item in val %}
+                        <li class="list-group-item">{{ item.first_name }} {{ item.last_name }}</li>
+
+                    {% endfor %}
+                </ul>
+
+            </div>
+        </div>
+
+        <br>
+    {% endfor %}
+    <hr>
+
+    <div class="card">
+        <div class="card-body">
+            <form action="{% url 'department_list' %}" method="post">
+                <div class="form-group">
+                    {% csrf_token %}
+                    {{ form }}
+                    <input type="submit" value="add department">
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
